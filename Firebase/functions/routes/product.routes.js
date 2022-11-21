@@ -41,6 +41,28 @@ router.post('/api/oferts', async (req, res)  => {
         return res.status(500).send(error);
     }
 });
+
+//Para añadir a pedido
+router.post('/api/pedido', async (req, res)  => {
+    try {
+        const {Imagen, PrecioUnitario, PrecioTotal, Hora, FechaLimite, Cantidad, Nota} = req.body;
+
+        await db.collection("pedido").add({
+            Imagen,
+            PrecioUnitario,
+            PrecioTotal,
+            Hora,
+            FechaLimite,
+            Cantidad,
+            Nota
+        });
+        return res.status(204).json();
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+});
+
 //Para obtener
 router.get('/api/products/:product_id', async (req, res) => {
     try {
